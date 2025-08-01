@@ -11,7 +11,7 @@ urlpatterns = [
     path('<int:num>', views.news_feed_num),
     
     #Dynamic path routing to the news feed view
-    path('<topic>', views.news_feed),
+    path('<topic>', views.news_feed, name='news-feed'),
     
 
 ]

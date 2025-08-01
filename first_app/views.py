@@ -1,7 +1,8 @@
 # Create your views here.
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.http.response import HttpResponse
+from django.urls import reverse
 # Create your views here.
 news = {
     'blog_page': 'Blog page',
@@ -19,14 +20,15 @@ def news_feed(request, topic):
     try:
         return HttpResponse( news[topic])
     except:
-        return Http404("topic not found")
+        raise Http404("topic not found")
     
 
-#Diverts page numbers to pages
+#Diverts page numbers to pages uses the reverse function 
 def news_feed_num(request, num):
     try:
         topic_list = list(news.keys())
         topic = topic_list[num]
-        return HttpResponse(topic)
+
+        return HttpResponseRedirect(reverse('news-feed', args=[topic]))
     except:
-        return Http404("topic not found")
+        raise Http404("topic not found")
